@@ -1,0 +1,133 @@
+## Visual Studio / .NET
+# Файлы пользовательских настроек
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.userprefs
+
+# Настройки Rider / ReSharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+.idea/
+
+# Кэш и результаты сборки
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+[Ll]og/
+[Ll]ogs/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+build/
+build_output/
+*.dll
+*.exe
+*.pdb
+*.cache
+*.ilk
+*.meta
+*.obj
+*.iobj
+*.ipdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*.log
+*.vspscc
+*.vssscc
+.builds
+*.pidb
+*.svclog
+*.scc
+
+# Файлы, создаваемые Visual Studio
+*.VisualState.xml
+TestResult.xml
+nunit-results.xml
+*.coverage
+*.coveragexml
+*.psess
+*.vsp
+*.vspx
+*.sap
+
+## NuGet
+*.nupkg
+*.snupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+*.nuget.props
+*.nuget.targets
+
+# Исключения для NuGet (если используете packages.config — не игнорируйте packages)
+# !**/packages/repositories.config
+
+## Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+.history/
+*.vsix
+
+## Операционная система
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+
+## Прочее
+*.GhostDoc.xml
+*.dotCover
+*.ndproj
+*.userprefs
+*.VC.db
+*.VC.VC.opendb
+__pycache__/
+*.pyc
+
+# Environment variables
+.env
+.env.*
+!.env.example
+*.env.local
+appsettings.Development.json
+appsettings.Local.json
+secrets.json
