@@ -1,4 +1,4 @@
-[article_20261005_070425507.html](https://github.com/user-attachments/files/33047098/article_20261005_070425507.html)# News2Video
+# News2Video
 
 **News2Video** — консольный скрипт на C#, предназначенный для автоматической обработки новостей. Скрипт получает публикации из RSS, с помощью встроенного парсера извлекает содержимое статьи из HTML, после чего формирует короткое видео и загружает его на Яндекс Диск.
 
@@ -6,7 +6,9 @@
 
 [Оригинальная статья](https://3dnews.ru/1149384/beskompromissniy-boevik-sifu-vzyal-kurs-na-ios-i-android-a-fanati-trebuyut-sifu-2)
 
-Готовое видео: <img width="607" height="1078" alt="image" src="https://github.com/user-attachments/assets/dfdbc642-5d65-402a-b35d-b2ddb4ceb5fd" />
+Готовое видео:
+
+<img width="607" height="1078" alt="image" src="https://github.com/user-attachments/assets/dfdbc642-5d65-402a-b35d-b2ddb4ceb5fd" />
 
 Яндекс Диск: https://disk.yandex.ru/d/vtISvhahhayTNA
 
