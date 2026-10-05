@@ -21,6 +21,13 @@ Directory.CreateDirectory("data/raw");
 
 using var cancellationTokenSource = new CancellationTokenSource();
 
+Console.CancelKeyPress += (_, e) =>
+{
+    e.Cancel = true;
+    cancellationTokenSource.Cancel();
+    Console.WriteLine("Остановка...");
+};
+
 while (!cancellationTokenSource.IsCancellationRequested)
 {
     try
