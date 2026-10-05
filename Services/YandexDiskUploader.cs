@@ -24,7 +24,7 @@ public class YandexDiskUploader
         if (string.IsNullOrWhiteSpace(token))
         {
             throw new InvalidOperationException(
-                "Не найден YANDEX_DISK_TOKEN в .env.");
+                "Не найден YANDEX_DISK_TOKEN в .env");
         }
 
         _httpClient = new HttpClient();
@@ -43,7 +43,7 @@ public class YandexDiskUploader
         if (string.IsNullOrWhiteSpace(video.FilePath))
         {
             throw new ArgumentException(
-                "У видео не указан путь к файлу.",
+                "У видео не указан путь к файлу",
                 nameof(video));
         }
 
@@ -101,7 +101,7 @@ public class YandexDiskUploader
                 cancellationToken);
 
         throw new InvalidOperationException(
-            $"Не удалось создать папку на Яндекс Диске. " +
+            $"Не удалось создать папку на Яндекс Диске" +
             $"HTTP {(int)response.StatusCode}: {error}");
     }
 
@@ -128,7 +128,7 @@ public class YandexDiskUploader
         if (!response.IsSuccessStatusCode)
         {
             throw new InvalidOperationException(
-                $"Не удалось получить ссылку для загрузки. " +
+                $"Не удалось получить ссылку для загрузки" +
                 $"HTTP {(int)response.StatusCode}: {responseBody}");
         }
 
@@ -140,7 +140,7 @@ public class YandexDiskUploader
                 out var hrefElement))
         {
             throw new InvalidOperationException(
-                "В ответе Яндекс Диска нет поля href.");
+                "В ответе Яндекс Диска нет поля href");
         }
 
         var href = hrefElement.GetString();
@@ -148,7 +148,7 @@ public class YandexDiskUploader
         if (string.IsNullOrWhiteSpace(href))
         {
             throw new InvalidOperationException(
-                "Яндекс Диск вернул пустой URL загрузки.");
+                "Яндекс Диск вернул пустой URL загрузки");
         }
 
         return href;
@@ -182,7 +182,7 @@ public class YandexDiskUploader
         if (!response.IsSuccessStatusCode)
         {
             throw new InvalidOperationException(
-                $"Ошибка загрузки файла на Яндекс Диск. " +
+                $"Ошибка загрузки файла на Яндекс Диск" +
                 $"HTTP {(int)response.StatusCode}: {responseBody}");
         }
     }

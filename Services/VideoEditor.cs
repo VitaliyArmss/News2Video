@@ -67,39 +67,42 @@ public class VideoEditor
                 new UTF8Encoding(false),
                 cancellationToken);
 
-            var duration = CalculateDuration(news.Text);
+            var duration = TimeSpan.FromSeconds(15);
 
             var arguments = new List<string>
             {
                 "-y",
 
-                // Фоновое видео зацикливаем.
+                // Фоновое видео зацикливаем
                 "-stream_loop", "-1",
                 "-i", backgroundPath,
 
-                // Музыку тоже зацикливаем.
+                // Музыку тоже зацикливаем
                 "-stream_loop", "-1",
                 "-i", musicPath,
 
-                // Длительность итогового видео.
+                "-map", "0:v:0",   // видео из фона
+                "-map", "1:a:0",   // аудио из музыки
+
+                // Длительность итогового видео
                 "-t",
                 duration.TotalSeconds.ToString(
                     CultureInfo.InvariantCulture),
 
-                // Текст поверх видео.
+                // Текст поверх видео
                 "-vf",
                 BuildVideoFilter(
                     fontPath,
                     titlePath,
                     textPath),
 
-                // Видео.
+                // Видео
                 "-c:v", "libx264",
                 "-preset", "medium",
                 "-crf", "23",
                 "-pix_fmt", "yuv420p",
 
-                // Аудио.
+                // Аудио
                 "-c:a", "aac",
                 "-b:a", "192k",
 
@@ -136,7 +139,7 @@ public class VideoEditor
             catch
             {
                 // Ошибка удаления временных файлов
-                // не должна ломать основной процесс.
+                // не должна ломать основной процесс
             }
         }
     }
@@ -152,39 +155,39 @@ public class VideoEditor
 
         return
             // Приводим фон к Full HD.
-            "scale=1920:1080:force_original_aspect_ratio=increase," +
-            "crop=1920:1080," +
+            "scale=1080:1920:force_original_aspect_ratio=increase," +
+            "crop=1080:1920," +
 
-            // Затемняем фон, чтобы текст был хорошо виден.
+            // Затемняем фон, чтобы текст был хорошо виден
             "drawbox=" +
             "x=0:y=0:w=iw:h=ih:" +
-            "color=black@0.45:" +
+            "color=black@0.70:" +
             "t=fill," +
 
-            // Заголовок.
+            // Заголовок
             "drawtext=" +
             $"fontfile='{font}':" +
             $"textfile='{title}':" +
             "fontcolor=white:" +
-            "fontsize=64:" +
-            "line_spacing=12:" +
+            "fontsize=48:" +
+            "line_spacing=3:" +
             "x=(w-text_w)/2:" +
-            "y=220:" +
+            "y=100:" +
             "text_align=center:" +
             "box=1:" +
             "boxcolor=black@0.35:" +
             "expansion=none:" +
             "boxborderw=20," +
 
-            // Основной текст.
+            // Основной текст
             "drawtext=" +
             $"fontfile='{font}':" +
             $"textfile='{text}':" +
             "fontcolor=white:" +
             "fontsize=34:" +
-            "line_spacing=10:" +
+            "line_spacing=3:" +
             "x=(w-text_w)/2:" +
-            "y=430:" +
+            "y=400:" +
             "text_align=center:" +
             "box=1:" +
             "expansion=none:" +
@@ -235,23 +238,6 @@ public class VideoEditor
         }
     }
 
-    private static TimeSpan CalculateDuration(string text)
-    {
-        var words = text
-            .Split(
-                new[] { ' ', '\r', '\n', '\t' },
-                StringSplitOptions.RemoveEmptyEntries)
-            .Length;
-
-        // Примерно 2.2 слова в секунду.
-        var seconds = Math.Ceiling(words / 2.2);
-
-        // Минимум 15 секунд, максимум 90.
-        seconds = Math.Clamp(seconds, 15, 90);
-
-        return TimeSpan.FromSeconds(seconds);
-    }
-
     private static string PrepareText(
         string text,
         int maxCharactersPerLine)
@@ -291,16 +277,16 @@ public class VideoEditor
                 }
                 else
                 {
-                    result.AppendLine(currentLine.ToString());
+                    result.Append(currentLine);
+                    result.Append('\n');
                     currentLine.Clear();
                     currentLine.Append(word);
                 }
             }
 
             if (currentLine.Length > 0)
-                result.AppendLine(currentLine.ToString());
-
-            result.AppendLine();
+                result.Append(currentLine);
+            result.Append('\n');
         }
 
         return result.ToString().Trim();

@@ -1,6 +1,4 @@
-using System.Net.Http.Headers;
 using News2Video.Services;
-using News2Video.Models;
 
 const string rssUrl = "https://3dnews.ru/news/rss/";
 const string processedFile = "data/processed.txt";
@@ -22,13 +20,6 @@ Directory.CreateDirectory("data");
 Directory.CreateDirectory("data/raw");
 
 using var cancellationTokenSource = new CancellationTokenSource();
-
-//Console.CancelKeyPress += (_, e) =>
-//{
-//    e.Cancel = true;
-//    cancellationTokenSource.Cancel();
-//    Console.WriteLine("Остановка...");
-//};
 
 while (!cancellationTokenSource.IsCancellationRequested)
 {
@@ -69,18 +60,10 @@ while (!cancellationTokenSource.IsCancellationRequested)
             Console.WriteLine($"Заголовок: {news.Title}");
             Console.WriteLine($"Текст: {news.Text[..Math.Min(news.Text.Length, 200)]}...");
 
-            var news2 = new NewsContent
-            {
-                Title = news.Title,
-                Text = "Сингулярность крутое слово",
-                Url = news.Url,
-                PublishedAt = news.PublishedAt
-            };
-
             try
             {
                 var video = await videoEditor.CreateVideoAsync(
-                    news2,
+                    news,
                     cancellationTokenSource.Token);
 
                 await uploader.UploadAsync(
@@ -92,7 +75,7 @@ while (!cancellationTokenSource.IsCancellationRequested)
             catch (NotImplementedException ex)
             {
                 Console.WriteLine(ex.Message);
-                Console.WriteLine("Статья пока НЕ помечена как обработанная.");
+                Console.WriteLine("Статья пока НЕ помечена как обработанная");
                 break;
             }
         }
@@ -109,7 +92,7 @@ while (!cancellationTokenSource.IsCancellationRequested)
 
     try
     {
-        Console.WriteLine("Следующая проверка через 5 минут.");
+        Console.WriteLine("Следующая проверка через 5 минут");
         await Task.Delay(
             TimeSpan.FromMinutes(5),
             cancellationTokenSource.Token);
